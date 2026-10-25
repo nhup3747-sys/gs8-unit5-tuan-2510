@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS8 – Unit 5 – Luyện tập tuần 25/10</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2330;--sub:#566070;--line:#e2e5ec;--brand:#3b57e8;--good:#177a50;--good-bg:#e6f6ee;--bad:#c0383e;--bad-bg:#fdeaea;--gold:#b7791f;--gold-bg:#fff6df;--radius:14px;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:18px;padding:20px 12px 90px;}
+.wrap{max-width:780px;margin:0 auto;}
+h1{font-size:1.45rem;margin:0 0 6px;line-height:1.3;}
+.sub{color:var(--sub);font-size:.95rem;margin:0;}
+.hud{position:sticky;top:0;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:10px 14px;margin:14px 0;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.92rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.hud b{color:var(--brand);}
+.bar{flex:1 1 140px;height:10px;background:var(--line);border-radius:99px;overflow:hidden;}
+.bar i{display:block;height:100%;width:0;background:var(--brand);transition:width .3s;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;margin-bottom:16px;}
+.stu{display:flex;flex-wrap:wrap;gap:10px 16px;}
+.stu label{flex:1 1 200px;display:flex;flex-direction:column;font-size:.85rem;color:var(--sub);gap:4px;}
+.stu input{border:1.5px solid var(--line);border-radius:8px;padding:10px;font-size:1rem;font-family:inherit;color:var(--ink);}
+.stu input.miss{border-color:var(--bad);}
+.lvhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px;}
+.lvhead h2{font-size:1.12rem;margin:0;}
+.lvtag{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);background:#eaeeff;padding:3px 9px;border-radius:99px;}
+.lvcount{margin-left:auto;font-size:.85rem;color:var(--sub);}
+.badge{display:none;font-size:.82rem;font-weight:700;color:var(--gold);background:var(--gold-bg);border:1px solid #f0d9a0;padding:2px 10px;border-radius:99px;}
+.badge.on{display:inline-block;}
+.desc{color:var(--sub);font-size:.9rem;margin:2px 0 8px;}
+.passage{background:#f3f5fb;border-left:4px solid var(--brand);padding:10px 12px;border-radius:8px;margin:8px 0 6px;font-size:1rem;}
+.q{border-top:1px solid var(--line);padding:14px 0 10px;}
+.q:first-of-type{border-top:none;}
+.qt{margin-bottom:8px;}
+.qn{font-weight:700;color:var(--brand);margin-right:4px;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:11px 14px;border-radius:10px;font-size:1rem;cursor:pointer;text-align:left;font-family:inherit;line-height:1.4;}
+.opt:hover{border-color:var(--brand);}
+.opt.sel{border-color:var(--brand);background:#eef1ff;font-weight:600;}
+.opt.ok{border-color:var(--good);background:var(--good-bg);color:var(--good);font-weight:600;}
+.opt.no{border-color:var(--bad);background:var(--bad-bg);color:var(--bad);font-weight:600;}
+.opt:disabled{cursor:default;}
+input.blank,input.rw{border:none;border-bottom:2px solid var(--brand);background:transparent;font-size:1rem;font-family:inherit;color:var(--ink);padding:4px;outline:none;}
+input.blank{width:150px;}
+input.rw{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:10px;}
+.root{font-weight:700;color:var(--brand);}
+.hint{font-size:.88rem;color:var(--sub);margin:4px 0;}
+.fb{display:none;margin-top:8px;font-size:.92rem;padding:8px 12px;border-radius:8px;}
+.fb.show{display:block;}
+.fb.good{background:var(--good-bg);color:var(--good);}
+.fb.bad{background:var(--bad-bg);color:var(--bad);}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+button.pri{background:var(--brand);color:#fff;border:none;padding:14px 22px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;}
+button.pri:disabled{opacity:.55;cursor:not-allowed;}
+button.sec{background:var(--card);color:var(--ink);border:1.5px solid var(--line);padding:14px 22px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;}
+#msg{color:var(--bad);font-weight:600;margin-top:10px;}
+#result{display:none;text-align:center;}
+#result.show{display:block;}
+#result .big{font-size:2.2rem;font-weight:800;color:var(--brand);}
+#result .rank{font-size:1.2rem;font-weight:800;margin:6px 0;}
+#result .xp{font-size:1rem;color:var(--gold);font-weight:700;}
+#send{margin-top:8px;font-size:.88rem;font-weight:600;}
+#send.ok{color:var(--good);}#send.pending{color:var(--sub);}#send.err{color:var(--bad);}
+#practice{display:none;}
+#practice.show{display:block;}
+.note{font-size:.85rem;color:var(--sub);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>GS8 – Unit 5 – Luyện tập tuần 25/10</h1>
+<p class="sub">Unit 5: Our Customs and Traditions (Phong tục và truyền thống). 38 câu · khoảng 30–35 phút · trọng tâm: mạo từ a/an/the và không dùng mạo từ.</p>
+<div class="card stu" style="margin-top:14px">
+<label>Trường<input type="text" id="stuSchool" placeholder="Tên trường"></label>
+<label>Lớp<input type="text" id="stuClass" placeholder="VD: 8A1"></label>
+<label>Họ và tên<input type="text" id="stuName" placeholder="Họ và tên học sinh"></label>
+</div>
+<div class="hud">
+<span>Đã làm: <b id="hAns">0/38</b></span>
+<div class="bar"><i id="hBar"></i></div>
+<span>Level xong: <b id="hLv">0/8</b></span>
+</div>
+<div id="levels"></div>
+<div class="row"><button class="pri" id="submit">Nộp bài &amp; xem kết quả</button><button class="sec" id="reset">Làm lại từ đầu</button></div>
+<div id="msg"></div>
+<div id="result" class="card">
+<div class="note">Điểm của bạn (thang 10)</div>
+<div class="big" id="rScore"></div>
+<div id="rCount" class="note"></div>
+<div class="rank" id="rRank"></div>
+<div class="xp" id="rXp"></div>
+<div id="rBadges" style="margin-top:8px"></div>
+<div id="send"></div>
+<div class="row" style="justify-content:center"><button class="sec" id="btnPractice">Luyện lại câu sai</button></div>
+<div class="note" style="margin-top:6px">XP chỉ để vui, không phải điểm. Phần luyện lại không gửi điểm.</div>
+</div>
+<div id="practice" class="card"><div class="lvhead"><h2>Luyện lại câu sai</h2></div><div class="desc">Làm lại các câu sai để nhớ chắc hơn. Phần này không gửi điểm.</div><div id="pList"></div></div>
+</div>
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby08od-VjK63bcLdiXGBgjz9imiBImjbBBKmjHqN1AnzfpBhEjFyItSniMfbPKm9TA/exec";
+const CLASS_LABEL = "GS8";
+const TEST_NAME = "GS8 Unit 5 - Luyện tập tuần 25/10";
+const UNIT = 5;
+const LEVELS = [{"n": 1, "tag": "LEVEL 1", "title": "Khởi động", "desc": "Nối từ/cụm từ với nghĩa tiếng Việt đúng.", "badge": "⭐ Từ vựng", "passage": ""}, {"n": 2, "tag": "LEVEL 2", "title": "Phát âm", "desc": "Phần gạch chân phát âm khác và trọng âm.", "badge": "🔊 Phát âm", "passage": ""}, {"n": 3, "tag": "LEVEL 3", "title": "Từ vựng &amp; Ngữ pháp", "desc": "Chọn đáp án đúng A/B/C/D.", "badge": "🧠 Ngữ pháp", "passage": ""}, {"n": 4, "tag": "LEVEL 4", "title": "Word form", "desc": "Điền dạng đúng của từ trong ngoặc.", "badge": "🔤 Word form", "passage": ""}, {"n": 5, "tag": "LEVEL 5", "title": "Đồng nghĩa / Trái nghĩa", "desc": "Chọn đáp án đúng cho từ được gạch chân.", "badge": "🔁 Đồng-trái nghĩa", "passage": ""}, {"n": 6, "tag": "LEVEL 6", "title": "Tìm lỗi sai", "desc": "Chọn phần (A, B, C hoặc D) có lỗi sai.", "badge": "🔍 Tìm lỗi", "passage": ""}, {"n": 7, "tag": "LEVEL 7", "title": "Viết lại câu", "desc": "Viết lại câu sao cho nghĩa không đổi, bắt đầu bằng từ gợi ý.", "badge": "✍️ Viết lại câu", "passage": ""}, {"n": 8, "tag": "BOSS LEVEL", "title": "Đọc hiểu (điểm thưởng XP x2)", "desc": "Đọc đoạn văn rồi trả lời. Mỗi câu đúng +20 XP.", "badge": "👑 Boss", "passage": "Lan's family celebrates Tet in a traditional way. A week before Tet, they clean the house and buy a peach blossom tree. On New Year's Eve, her father places offerings on the altar to worship their ancestors, and everyone prays for good luck. On the first day, children wear new clothes and say Happy New Year to the elders. In return, the elders give them lucky money. The family also visits the pagoda, where they should speak softly and respect the monks. Lan thinks these customs keep the family bonds strong."}];
+const QS = [{"lv": 1, "t": "mc", "q": "Chọn nghĩa tiếng Việt của <b>ancestor</b>:", "o": ["chủ nhà", "con cháu", "người lớn tuổi", "tổ tiên"], "a": "tổ tiên", "e": "ancestor = tổ tiên."}, {"lv": 1, "t": "mc", "q": "Chọn nghĩa tiếng Việt của <b>lantern</b>:", "o": ["chuông nhỏ", "cây nêu", "hoa đào", "đèn lồng"], "a": "đèn lồng", "e": "lantern = đèn lồng."}, {"lv": 1, "t": "mc", "q": "Chọn nghĩa tiếng Việt của <b>table manners</b>:", "o": ["món ăn truyền thống", "phép lịch sự khi ăn uống", "tiệc sinh nhật", "đôi đũa"], "a": "phép lịch sự khi ăn uống", "e": "table manners = cách cư xử lịch sự trên bàn ăn."}, {"lv": 1, "t": "mc", "q": "Chọn nghĩa tiếng Việt của <b>chase away</b>:", "o": ["tập trung", "ngưỡng mộ", "xua đuổi", "duy trì"], "a": "xua đuổi", "e": "chase away = xua đuổi (ví dụ chase away bad spirits)."}, {"lv": 1, "t": "mc", "q": "Chọn nghĩa tiếng Việt của <b>boat race</b>:", "o": ["võ thuật", "múa lân", "đua thuyền", "nhào lộn"], "a": "đua thuyền", "e": "boat race = cuộc đua thuyền."}, {"lv": 2, "t": "mc", "q": "Chọn từ có phần gạch chân phát âm khác với các từ còn lại:", "o": ["l<u>u</u>cky", "c<u>ar</u>p", "m<u>o</u>nk", "c<u>u</u>stom"], "a": "c<u>ar</u>p", "e": "custom, lucky, monk có âm /ʌ/; carp có âm /ɑː/."}, {"lv": 2, "t": "mc", "q": "Chọn từ có phần gạch chân phát âm khác với các từ còn lại:", "o": ["m<u>ar</u>tial", "<u>ar</u>ts", "d<u>ru</u>m", "p<u>ar</u>ty"], "a": "d<u>ru</u>m", "e": "martial, arts, party có âm /ɑː/; drum có âm /ʌ/."}, {"lv": 2, "t": "mc", "q": "Chọn từ có trọng âm chính rơi vào âm tiết khác với các từ còn lại:", "o": ["ancestor", "custom", "temple", "respect"], "a": "respect", "e": "respect nhấn âm 2; các từ còn lại nhấn âm 1."}, {"lv": 2, "t": "mc", "q": "Chọn từ có trọng âm chính rơi vào âm tiết khác với các từ còn lại:", "o": ["worship", "admire", "performer", "maintain"], "a": "worship", "e": "worship nhấn âm 1; các từ còn lại nhấn âm 2."}, {"lv": 3, "t": "mc", "q": "Guests should not talk with their mouths full; it is bad table ___.", "o": ["manners", "ceremonies", "lanterns", "gifts"], "a": "manners", "e": "table manners = phép lịch sự khi ăn."}, {"lv": 3, "t": "mc", "q": "Many Vietnamese families ___ their ancestors by burning incense on special days.", "o": ["invite", "decorate", "admire", "worship"], "a": "worship", "e": "worship ancestors = thờ cúng tổ tiên."}, {"lv": 3, "t": "mc", "q": "The eldest person receives the first bowl of rice; this shows ___.", "o": ["danger", "anger", "respect", "noise"], "a": "respect", "e": "nhường người lớn ăn trước thể hiện sự tôn trọng (respect)."}, {"lv": 3, "t": "mc", "q": "Linh has ___ unique collection of lanterns.", "o": ["the", "an", "(no article)", "a"], "a": "a", "e": "unique đọc là /juːˈniːk/ (bắt đầu bằng phụ âm /j/) nên dùng a."}, {"lv": 3, "t": "mc", "q": "The monk lives in ___ old temple on the hill.", "o": ["a", "an", "the", "(no article)"], "a": "an", "e": "old bắt đầu bằng nguyên âm nên dùng an."}, {"lv": 3, "t": "mc", "q": "Mai plays ___ drum in the school band.", "o": ["a", "the", "(no article)", "an"], "a": "the", "e": "chơi nhạc cụ dùng the: play the drum."}, {"lv": 3, "t": "mc", "q": "___ Tet is the most important holiday in Viet Nam.", "o": ["The", "An", "A", "(no article)"], "a": "(no article)", "e": "tên ngày lễ như Tet không dùng mạo từ."}, {"lv": 3, "t": "mc", "q": "My uncle is ___ honest man; everybody trusts him.", "o": ["(no article)", "a", "the", "an"], "a": "an", "e": "honest có h câm, đọc /ˈɒnɪst/ nên dùng an."}, {"lv": 3, "t": "mc", "q": "Children in my village love ___ lion dances at the festival.", "o": ["a", "the", "(no article)", "an"], "a": "(no article)", "e": "danh từ số nhiều nói chung không dùng mạo từ."}, {"lv": 3, "t": "mc", "q": "We watched a boat race on the river. ___ race was very exciting.", "o": ["(no article)", "The", "A", "An"], "a": "The", "e": "race đã được nhắc đến trước đó nên dùng The."}, {"lv": 4, "t": "fill", "before": "The streets are full of colourful ", "root": "DECORATE", "after": " for Tet.", "a": "decorations", "e": "sau tính từ colourful, are full of cần danh từ số nhiều: decorations."}, {"lv": 4, "t": "fill", "before": "Children should be ", "root": "RESPECT", "after": " to their elders.", "a": "respectful", "e": "sau be cần tính từ: respectful (lễ phép)."}, {"lv": 4, "t": "fill", "before": "Please place the offerings ", "root": "CARE", "after": " on the altar.", "a": "carefully", "e": "bổ nghĩa cho động từ place cần trạng từ: carefully."}, {"lv": 4, "t": "fill", "before": "The villagers still ", "root": "PRACTICE", "after": " many old customs.", "a": "practise", "e": "sau chủ ngữ số nhiều cần động từ: practise (thực hành)."}, {"lv": 4, "t": "fill", "before": "Red is a ", "root": "LUCK", "after": " colour for Tet.", "a": "lucky", "e": "trước danh từ colour cần tính từ: lucky (may mắn)."}, {"lv": 5, "t": "mc", "q": "He gave his grandmother a small <u>gift</u>. (Từ đồng nghĩa với gift)", "o": ["present", "plan", "price", "prize"], "a": "present", "e": "gift = present (quà tặng)."}, {"lv": 5, "t": "mc", "q": "The children <u>chase away</u> bad spirits with drums. (Từ đồng nghĩa với chase away)", "o": ["welcome", "call", "drive away", "invite"], "a": "drive away", "e": "chase away = drive away (xua đuổi)."}, {"lv": 5, "t": "mc", "q": "Many people hope for <u>good luck</u> in the new year. (Từ trái nghĩa với good luck)", "o": ["happiness", "bad luck", "success", "great luck"], "a": "bad luck", "e": "good luck (may mắn) trái nghĩa với bad luck (xui xẻo)."}, {"lv": 5, "t": "mc", "q": "The <u>elder</u> members of the family sat at the table first. (Từ trái nghĩa với elder)", "o": ["senior", "younger", "older", "wiser"], "a": "younger", "e": "elder (lớn tuổi hơn) trái nghĩa với younger (trẻ hơn)."}, {"lv": 6, "t": "mc", "q": "Tìm phần có lỗi sai: My cousin is <u><b>(A)</b> a</u> <u><b>(B)</b> honest</u> boy, <u><b>(C)</b> so</u> everyone <u><b>(D)</b> likes him</u>.", "o": ["A", "B", "C", "D"], "a": "A", "e": "honest bắt đầu bằng âm nguyên âm /ɒ/ nên phải dùng an."}, {"lv": 6, "t": "mc", "q": "Tìm phần có lỗi sai: <u><b>(A)</b> Mai</u> plays <u><b>(B)</b> the</u> badminton <u><b>(C)</b> after</u> <u><b>(D)</b> class</u>.", "o": ["A", "B", "C", "D"], "a": "B", "e": "tên môn thể thao không dùng mạo từ the."}, {"lv": 6, "t": "mc", "q": "Tìm phần có lỗi sai: There is <u><b>(A)</b> a</u> big lantern <u><b>(B)</b> in</u> front of the temple. <u><b>(C)</b> A</u> lantern <u><b>(D)</b> is red</u>.", "o": ["A", "B", "C", "D"], "a": "C", "e": "lantern đã được nhắc đến nên câu sau dùng The."}, {"lv": 7, "t": "rw", "q": "Don't point your chopsticks at other people. (should)", "start": "You shouldn't ...", "acc": ["You shouldn't point your chopsticks at other people", "You should not point your chopsticks at other people"], "e": "lời khuyên không nên làm: shouldn't + V."}, {"lv": 7, "t": "rw", "q": "It is a good idea to take off your shoes at the pagoda. (should)", "start": "You should ...", "acc": ["You should take off your shoes at the pagoda"], "e": "should + V để đưa ra lời khuyên."}, {"lv": 7, "t": "rw", "q": "Everyone must take off their shoes before entering the temple. (have to)", "start": "Everyone has ...", "acc": ["Everyone has to take off their shoes before entering the temple"], "e": "must = have to (với Everyone dùng has to)."}, {"lv": 7, "t": "rw", "q": "Do not talk loudly in the pagoda. (must)", "start": "You mustn't ...", "acc": ["You mustn't talk loudly in the pagoda", "You must not talk loudly in the pagoda"], "e": "mustn't + V = cấm/không được phép làm gì."}, {"lv": 8, "t": "mc", "q": "Lan's family buys a kumquat tree before Tet. (True/False)", "o": ["False", "True"], "a": "False", "e": "Bài đọc: they buy a peach blossom tree."}, {"lv": 8, "t": "mc", "q": "The elders give lucky money to the children. (True/False)", "o": ["True", "False"], "a": "True", "e": "Bài đọc: the elders give them lucky money."}, {"lv": 8, "t": "mc", "q": "What should people do at the pagoda?", "o": ["Speak softly and respect the monks.", "Take off their ancestors' photos.", "Give lucky money to the monks.", "Wear new clothes and run."], "a": "Speak softly and respect the monks.", "e": "Bài đọc: they should speak softly and respect the monks."}];
+const state = QS.map(()=>null);
+const done = QS.map(()=>false);
+let submitted = false;
+const $ = id => document.getElementById(id);
+function norm(s){return String(s).toLowerCase().replace(/[’'`]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+function isOk(q,v){
+  if(v===null||v===undefined||v==='') return false;
+  if(q.t==='mc') return v===q.a;
+  if(q.t==='fill') return norm(v)===norm(q.a);
+  if(q.t==='rw') return q.acc.some(a=>norm(a)===norm(v));
+  return false;
+}
+function answeredCount(){return state.filter(v=>v!==null&&v!=='').length;}
+function lvStat(l){const idx=QS.map((q,i)=>q.lv===l?i:-1).filter(i=>i>=0);const n=idx.filter(i=>state[i]!==null&&state[i]!=='').length;return {n,total:idx.length};}
+function refresh(){
+  const a=answeredCount();$('hAns').textContent=a+'/'+QS.length;$('hBar').style.width=(a/QS.length*100)+'%';
+  let lvDone=0;
+  LEVELS.forEach(L=>{const s=lvStat(L.n);$('cnt'+L.n).textContent=s.n+'/'+s.total;const full=s.n===s.total;if(full)lvDone++;$('bd'+L.n).classList.toggle('on',full);});
+  $('hLv').textContent=lvDone+'/'+LEVELS.length;
+}
+function build(){
+  const box=$('levels');
+  LEVELS.forEach(L=>{
+    const c=document.createElement('div');c.className='card';
+    c.innerHTML=`<div class="lvhead"><span class="lvtag">${L.tag}</span><h2>${L.title}</h2><span class="badge" id="bd${L.n}">${L.badge}</span><span class="lvcount" id="cnt${L.n}"></span></div><div class="desc">${L.desc}</div>${L.passage?`<div class="passage">${L.passage}</div>`:''}<div id="lv${L.n}"></div>`;
+    box.appendChild(c);
+    let k=0;
+    QS.forEach((q,i)=>{ if(q.lv!==L.n)return; k++; $('lv'+L.n).appendChild(renderQ(q,i,k,false)); });
+  });
+  refresh();
+}
+function renderQ(q,i,k,practice){
+  const d=document.createElement('div');d.className='q';d.dataset.i=i;
+  const num=practice?'':`<span class="qn">${k}.</span>`;
+  const set=(v)=>{ if(practice){pstate[i]=v;} else {state[i]=v;refresh();} };
+  if(q.t==='mc'){
+    d.innerHTML=`<div class="qt">${num}${q.q}</div><div class="opts"></div><div class="fb"></div>`;
+    const o=d.querySelector('.opts');
+    q.o.forEach(txt=>{const b=document.createElement('button');b.type='button';b.className='opt';b.innerHTML=txt;b.dataset.v=txt;
+      b.onclick=()=>{o.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');set(txt);};o.appendChild(b);});
+  } else if(q.t==='fill'){
+    d.innerHTML=`<div class="qt">${num}${q.before}<input type="text" class="blank" autocomplete="off" autocapitalize="none"> ${q.after} <span class="root">(${q.root})</span></div><div class="fb"></div>`;
+    d.querySelector('input').addEventListener('input',e=>set(e.target.value.trim()));
+  } else {
+    d.innerHTML=`<div class="qt">${num}${q.q}</div><div class="hint">Bắt đầu bằng: <b>${q.start}</b></div><input type="text" class="rw" autocomplete="off" autocapitalize="none" placeholder="Viết câu hoàn chỉnh"><div class="fb"></div>`;
+    d.querySelector('input').addEventListener('input',e=>set(e.target.value.trim()));
+  }
+  return d;
+}
+function showAns(q){return q.t==='mc'?q.a:(q.t==='fill'?q.a:q.acc[0]);}
+function mark(d,q,v,ok,withExpl){
+  const fb=d.querySelector('.fb');
+  if(q.t==='mc'){d.querySelectorAll('.opt').forEach(b=>{b.disabled=true;b.classList.remove('sel');if(b.dataset.v===q.a)b.classList.add('ok');else if(b.dataset.v===v)b.classList.add('no');});}
+  else{const inp=d.querySelector('input');inp.disabled=true;inp.style.borderColor=ok?'#177a50':'#c0383e';}
+  fb.className='fb show '+(ok?'good':'bad');
+  fb.innerHTML=ok?'✓ Chính xác!':`✗ Đáp án đúng: <b>${showAns(q)}</b><br>${q.e}`;
+}
+function finish(){
+  const name=$('stuName').value.trim(),cls=$('stuClass').value.trim(),school=$('stuSchool').value.trim();
+  ['stuName','stuClass'].forEach(x=>$(x).classList.remove('miss'));
+  let miss=false;if(!name){$('stuName').classList.add('miss');miss=true;}if(!cls){$('stuClass').classList.add('miss');miss=true;}
+  if(miss){$('msg').textContent='Vui lòng điền Họ và tên và Lớp trước khi nộp bài.';window.scrollTo({top:0,behavior:'smooth'});return;}
+  $('msg').textContent='';
+  submitted=true;$('submit').disabled=true;
+  let correct=0,xp=0,streak=0,combos=0;const lvOk={};LEVELS.forEach(L=>lvOk[L.n]=0);const lvTot={};LEVELS.forEach(L=>lvTot[L.n]=0);
+  QS.forEach((q,i)=>{
+    const ok=isOk(q,state[i]);const base=q.lv===8?20:10;lvTot[q.lv]++;
+    if(ok){correct++;lvOk[q.lv]++;const mult=streak>=3?2:1;if(mult===2)combos++;xp+=base*mult;streak++;}else{streak=0;}
+    const d=document.querySelector(`#levels .q[data-i="${i}"]`);mark(d,q,state[i],ok,true);
+  });
+  const total=QS.length,pct=correct/total,score10=(correct/total*10).toFixed(1);
+  const rank=pct>=0.9?`🌟 Siêu sao Unit ${UNIT}`:(pct>=0.7?'🛡️ Chiến binh':'💪 Cố lên – làm lại để lên hạng');
+  $('rScore').textContent=score10+'/10';$('rCount').textContent=`Đúng ${correct}/${total} câu`;$('rRank').textContent=rank;
+  $('rXp').textContent=`⚡ ${xp} XP`+(combos?` · Combo x2: ${combos} lần`:'');
+  $('rBadges').innerHTML=LEVELS.filter(L=>lvOk[L.n]===lvTot[L.n]).map(L=>`<span class="badge on" style="margin:2px">${L.badge}</span>`).join(' ')||'';
+  $('result').classList.add('show');$('result').scrollIntoView({behavior:'smooth',block:'start'});
+  window.__wrong=QS.map((q,i)=>isOk(q,state[i])?-1:i).filter(i=>i>=0);
+  $('btnPractice').style.display=window.__wrong.length?'inline-block':'none';
+  send({className:CLASS_LABEL,testName:TEST_NAME,school:school,studentClass:cls,name:name,correct:correct,total:total,score10:score10,timestamp:new Date().toISOString()});
+}
+function send(p){
+  const st=$('send');st.textContent='Đang gửi kết quả...';st.className='pending';
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p)})
+  .then(()=>{st.textContent='Đã gửi kết quả về hệ thống.';st.className='ok';})
+  .catch(err=>{st.textContent='Gửi kết quả thất bại (kiểm tra mạng): '+err.message;st.className='err';});
+}
+const pstate={};
+function practice(){
+  const box=$('pList');box.innerHTML='';$('practice').classList.add('show');
+  window.__wrong.forEach((i,n)=>{
+    const q=QS[i];pstate[i]=null;const d=renderQ(q,i,n+1,true);
+    const b=document.createElement('button');b.className='sec';b.type='button';b.textContent='Kiểm tra';b.style.marginTop='8px';
+    b.onclick=()=>{const v=pstate[i];if(v===null||v===''){return;}const ok=isOk(q,v);
+      if(q.t==='mc'){d.querySelectorAll('.opt').forEach(x=>{x.classList.remove('sel');if(x.dataset.v===q.a)x.classList.add('ok');else if(x.dataset.v===v)x.classList.add('no');});}
+      else{d.querySelector('input').style.borderColor=ok?'#177a50':'#c0383e';}
+      const fb=d.querySelector('.fb');fb.className='fb show '+(ok?'good':'bad');fb.innerHTML=ok?'✓ Đúng rồi!':`✗ Chưa đúng. Đáp án: <b>${showAns(q)}</b><br>${q.e}`;};
+    d.appendChild(b);box.appendChild(d);
+  });
+  $('practice').scrollIntoView({behavior:'smooth'});
+}
+$('submit').onclick=()=>{if(!submitted)finish();};
+$('reset').onclick=()=>location.reload();
+$('btnPractice').onclick=practice;
+build();
+</script>
+</body>
+</html>
